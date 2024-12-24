@@ -12,6 +12,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden; /* 防止文字溢出屏幕 */
         }
         #main {
             width: 100%;
@@ -25,33 +27,63 @@
             height: 100%;
             object-fit: cover; /* 保证视频填充整个屏幕 */
         }
+
+        /* 文字样式 */
+        .text {
+            position: absolute;
+            color: white;
+            font-size: 3em;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* 文字阴影效果 */
+            font-weight: bold;
+            animation: fadeIn 7s ease-in-out infinite; /* 添加文字渐变动画，增加时间 */
+        }
+
+        /* 动画效果：文字淡入淡出 */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            50% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
     </style>
 </head>
 <body>
-<div id="main">
-    <video id="video1" muted="muted" autoplay="autoplay" loop="loop">
-        <source src="1.mp4" type="video/mp4">
-        <source src="1.webm" type="video/webm">
-        <source src="1.ogg" type="video/ogg">
-        Your browser does not support the video tag.
-    </video>
-</div>
-<script>
-    window.addEventListener("resize", function() {
-        var video = document.getElementById("video1");
-        video.style.width = window.innerWidth + "px";
-        video.style.height = window.innerHeight + "px";
-    });
+    <div id="main">
+        <video id="video1" muted="muted" autoplay="autoplay" loop="loop">
+            <source src="1.mp4" type="video/mp4">
+            <source src="1.webm" type="video/webm">
+            <source src="1.ogg" type="video/ogg">
+            Your browser does not support the video tag.
+        </video>
+        <!-- 添加的文字 -->
+        <div class="text">小漾圣诞节快乐</div>
+    </div>
 
-    document.addEventListener("DOMContentLoaded", function() {
-        var video = document.getElementById("video1");
-        video.muted = true;
-        video.autoplay = true;
-        video.loop = true;
-        video.play().catch(error => {
-            console.error("Autoplay error:", error);
+    <script>
+        window.addEventListener("resize", function() {
+            var video = document.getElementById("video1");
+            video.style.width = window.innerWidth + "px";
+            video.style.height = window.innerHeight + "px";
         });
-    });
-</script>
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var video = document.getElementById("video1");
+            video.muted = true;
+            video.autoplay = true;
+            video.loop = true;
+            video.play().catch(error => {
+                console.error("Autoplay error:", error);
+            });
+        });
+    </script>
 </body>
 </html>
